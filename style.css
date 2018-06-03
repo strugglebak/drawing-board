@@ -1,8 +1,6 @@
-body {margin: 0;}
+body {margin: 0px;}
 
 #canvas {
-  border: 1px solid red;
-  position: relative;
+  display: block;
   background: green;
-  height: 100vh;
 }
