@@ -3,4 +3,11 @@ body {margin: 0px;}
 #canvas {
   display: block;
   background: green;
+  position: relative;
+}
+
+#eraser {
+  position: absolute;
+  bottom: 0;
+  left: 0;
 }
