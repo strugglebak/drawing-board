@@ -6,8 +6,18 @@ body {margin: 0px;}
   position: relative;
 }
 
-#eraser {
-  position: absolute;
+.actions {
+  position: fixed;
   bottom: 0;
   left: 0;
+}
+.actions > #brush {
+  display: none;
+}
+
+.actions.display > #brush {
+  display: inline-block;
+}
+.actions.display > #eraser {
+  display: none;
 }
