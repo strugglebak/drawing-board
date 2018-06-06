@@ -8,14 +8,36 @@
   </head>
   <body>
 
-    <canvas id="canvas" width="900" height="900">
-    </canvas>
+    <canvas id="canvas" width="900" height="900"></canvas>
+
+    <ol class="color">
+      <li id="black" class="black active"></li>
+      <li id="red" class="red"></li>
+      <li id="yellow" class="yellow"></li>
+      <li id="blue" class="blue"></li>
+    </ol>
+
+    <ol class="size">
+      <li id="thin" class="thin active"></li>
+      <li id="thick" class="thick"></li>
+    </ol>
 
     <div id="actions" class="actions">
-      <button id="eraser">橡皮擦</button>
-      <button id="brush">画笔</button>
+      <svg id="eraser" class="icon" aria-hidden="true">
+        <use xlink:href="#icon-eraser"></use>
+      </svg>
+      <svg id="brush" class="icon active" aria-hidden="true">
+        <use xlink:href="#icon-brush"></use>
+      </svg>
+      <svg id="clear" class="icon" aria-hidden="true">
+        <use xlink:href="#icon-clear"></use>
+      </svg>
+      <svg id="download" class="icon" aria-hidden="true">
+        <use xlink:href="#icon-Download"></use>
+      </svg>
     </div>
 
     <script src="./main.js" charset="utf-8"></script>
+    <script src="//at.alicdn.com/t/font_697235_y1itlatfh8o4unmi.js" charset="utf-8"></script>
   </body>
 </html>
