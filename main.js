@@ -45,42 +45,81 @@ function windowResize(canvasDiv) {
   canvasDiv.height = curPageHeight;
 }
 
-// 按下鼠标
-canvas.onmousedown = function(args) {
-  isUsing = true;
-  var x = args.clientX;
-  var y = args.clientY;
+// 特性检测，判断是否为触屏设备
+if (document.body.ontouchstart !== undefined) {
+  /** 监听触屏设备 **/
+  canvas.ontouchstart = function(args) {
+    isUsing = true;
+    var x = args.touches[0].clientX;
+    var y = args.touches[0].clientY;
 
-  if (eraseEnabled) {
-    erasePatten(x, y);
-  } else {
-    drawCircle(x, y, 2.5);
-    lastPosition = {'x': x, 'y': y}
+    if (eraseEnabled) {
+      erasePatten(x, y);
+    } else {
+      drawCircle(x, y, 2.5);
+      lastPosition = {'x': x, 'y': y}
+    }
   }
-}
+  canvas.ontouchmove = function(args) {
+    if (!isUsing) {
+      return;
+    }
 
-// 动鼠标
-canvas.onmousemove = function(args) {
-  if (!isUsing) {
-    return;
+    var x = args.touches[0].clientX;
+    var y = args.touches[0].clientY;
+    var nextPosition = {'x': x, 'y': y}
+
+    if (eraseEnabled) {
+      erasePatten(lastPosition.x, lastPosition.y);
+    } else {
+      drawLine(lastPosition.x, lastPosition.y, nextPosition.x, nextPosition.y);
+    }
+
+    lastPosition = nextPosition;
+  }
+  canvas.ontouchend = function(args) {
+    isUsing = false;
+  }
+} else {
+  /** 监听电脑设备 **/
+
+  // 按下鼠标
+  canvas.onmousedown = function(args) {
+    isUsing = true;
+    var x = args.clientX;
+    var y = args.clientY;
+
+    if (eraseEnabled) {
+      erasePatten(x, y);
+    } else {
+      drawCircle(x, y, 2.5);
+      lastPosition = {'x': x, 'y': y}
+    }
   }
 
-  var x = args.clientX;
-  var y = args.clientY;
-  var nextPosition = {'x': x, 'y': y}
+  // 动鼠标
+  canvas.onmousemove = function(args) {
+    if (!isUsing) {
+      return;
+    }
 
-  if (eraseEnabled) {
-    erasePatten(lastPosition.x, lastPosition.y);
-  } else {
-    drawLine(lastPosition.x, lastPosition.y, nextPosition.x, nextPosition.y);
+    var x = args.clientX;
+    var y = args.clientY;
+    var nextPosition = {'x': x, 'y': y}
+
+    if (eraseEnabled) {
+      erasePatten(lastPosition.x, lastPosition.y);
+    } else {
+      drawLine(lastPosition.x, lastPosition.y, nextPosition.x, nextPosition.y);
+    }
+
+    lastPosition = nextPosition;
   }
 
-  lastPosition = nextPosition;
-}
-
-// 松开鼠标
-canvas.onmouseup = function(args) {
-  isUsing = false;
+  // 松开鼠标
+  canvas.onmouseup = function(args) {
+    isUsing = false;
+  }
 }
 
 // 窗口缩放
